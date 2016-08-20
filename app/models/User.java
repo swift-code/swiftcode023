@@ -1,6 +1,7 @@
 package models;
 
 import com.avaje.ebean.Model;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.persistence.*;
 import java.util.List;
@@ -24,13 +25,21 @@ public class User extends Model {
     public Profile profile;
     @ManyToMany
     @JoinTable(name = "user_connections",
-            joinColumns= {
-                    @JoinColumn(name = "user id")
+            joinColumns = {
+                    @JoinColumn(name = "user_id")
             },
-            inverseJoinColumns ={
+            inverseJoinColumns = {
                     @JoinColumn(name = "connection_id")
             }
     )
     public Set<User> connections;
+    public static Finder<Long, User> find = new Finder<Long, User>(User.class);
 
+    public static User authenticate(String email, String password) {
+        User user = User.find.where().eq("email", email).findUnique();
+        if (user != null && BCrypt.checkpw(password, user.password)) {
+            return user;
+        }
+        return null;
+    }
 }
