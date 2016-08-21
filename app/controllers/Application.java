@@ -41,6 +41,6 @@ public class Application extends Controller{
         {
             return ok(form.errorsAsJson());
         }
-        return ok();
+        return ok("Success");
     }
 }
