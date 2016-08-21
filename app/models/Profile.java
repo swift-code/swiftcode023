@@ -14,8 +14,18 @@ import javax.persistence.Id;
 public class Profile extends Model{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+
     public Long id;
+
     public String firstName;
+
     public String lastName;
+
     public String company;
+
+    public Profile(String firstName, String lastName)
+    {
+        this.firstName = firstName;
+        this.lastName= lastName;
+    }
 }

@@ -19,7 +19,7 @@ public class LoginForm {
         List<ValidationError> errors =new ArrayList<>();
         User user = User.authenticate(email,password);
         if (user == null){
-            errors.add(new ValidationError("message","Invalid email id"));
+            errors.add(new ValidationError("message","Invalid email / password"));
             errors.add(new ValidationError("error","true"));
         }
         return errors;
